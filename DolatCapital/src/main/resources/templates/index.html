@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Product Details</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			padding: 20px;
+		}
+
+		h2 {
+			margin-bottom: 20px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.btn-group {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>Product Details</h2>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>credit rating</th>
+				<th>Volume</th>
+				<th>Market Capital</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="p : ${product}">
+				<td th:text="${p.productName}"></td>
+				<td th:text="${p.creditRating}"></td>
+				<td th:text="${p.volume}"></td>
+				<td th:text="${p.marketCapital}"></td>
+				<td>
+
+					<div class="btn-group">
+                        <a class="btn btn-primary" th:href="@{/showUpdateForm/{id}(id=${p.productId})}">Update</a>
+                       <a class="btn btn-danger" th:href="@{/products/delete/{id}(id=${p.productId})}">Delete</a>
+                    </div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="add-button">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+			
+	</div>
+
+	<!-- Add Product Modal -->
+	<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form th:action="@{/products/add}" th:object="${product}" method="post">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" id="productName" name="productName" required>
+						</div>
+						<div class="form-group">
+							<label for="creditRating">credit rating</label>
+							<input type="number" step="any" class="form-control" id="creditRating" name="creditRating"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="volume">Volume</label>
+							<input type="number" step="any" class="form-control" id="volume" name="volume" required>
+						</div>
+						<div class="form-group">
+							<label for="marketCapital">Market Capital</label>
+							<input type="number" step="any" class="form-control" id="marketCapital" name="marketCapital"
+								required>
+						</div>
+						<button type="submit" class="btn btn-primary">Add</button>
+					</form>
+				</div>
+
+	
+<!--js  functions-->
+				<script th:inline="javascript">
+					function updateProduct(productId) {
+						// TODO: Handle update logic for the product with the given ID
+						console.log('Update product:', productId);
+					}
+
+					function saveProduct(productId) {
+						// TODO: Handle save logic for the product with the given ID
+						console.log('Save product:', productId);
+					}
+
+					function deleteProduct(productId) {
+						// TODO: Handle delete logic for the product with the given ID
+						console.log('Delete product:', productId);
+					}
+				</script>
+				
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+				</body>
+				
+				</html>
